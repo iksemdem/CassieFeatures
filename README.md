@@ -1,6 +1,13 @@
 # An Exiled (SCP:SL) plugin that adds additional features, focusing on CASSIE System.
 
-<img source="[https://img.shields.io/github/downloads/iksemdem/CassieFeatures/total?style=for-the-badge&logo=github](https://img.shields.io/github/downloads/iksemdem/CassieFeatures/total?style=for-the-badge&logo=github)" alt="downloads" align="center">
+<div align="center">
+    
+<img src="https://img.shields.io/github/downloads/Michal78900/MapEditorReborn/total?style=for-the-badge&logo=github" alt="Downloads">
+<a href="https://discord.gg/JwAfeSd79u">
+    <img src="https://img.shields.io/discord/947849283514814486?style=for-the-badge&logo=discord" alt="Chat on Discord">
+</a>    
+
+</div>
 
 This plugin adds few features to CASSIE. Not the CASSIE as the announcement system, but as the CASSIE functions
 
