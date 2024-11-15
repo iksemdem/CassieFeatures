@@ -1,5 +1,7 @@
 # An Exiled (SCP:SL) plugin that adds additional features, focusing on CASSIE System.
 
+<img source="https://img.shields.io/github/downloads/iksemdem/CassieFeatures/total?style=for-the-badge&logo=github" alt="downloads" align="center">
+
 This plugin adds few features to CASSIE. Not the CASSIE as the announcement system, but as the CASSIE functions
 
 Features for tesla:
