@@ -3,6 +3,7 @@ using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Server;
+using Exiled.Events.EventArgs.Warhead;
 using PlayerRoles;
 using Log = Exiled.API.Features.Log;
 
@@ -21,6 +22,9 @@ namespace CassieFeatures
             // This is for Camera Scanner CI entering facility
             Log.Debug("setting that ci was not inside");
             Utils.WasCiSpottedInside = false;
+            // This is for Warhead lever change
+            Log.Debug("setting warhead lever status to true");
+            Utils.ActualLeverState = true;
         }
 
         internal void OnDead(DiedEventArgs ev)
@@ -86,6 +90,40 @@ namespace CassieFeatures
                 Utils.WasCiSpottedInside = false;
                 Log.Debug("ci spawned, the feature to announce only one time is turned on, so setting that ci was not inside");
             }
+        }
+
+        internal void OnChangingWarheadLever(ChangingLeverStatusEventArgs ev)
+        {
+            Log.Debug("changing warhead lever");
+            Log.Debug($"Old lever status is: {ev.CurrentState}");
+            Log.Debug($"Current lever status is: {Utils.ActualLeverState}");
+            
+            if (Plugin.Instance.Config.IsWarheadFeatureEnabled)
+            {
+                if (Plugin.Instance.Config.ShouldWarheadAnnounceOnlyOneTime)
+                {
+                    if (Utils.WasWarheadAnnounced)
+                    {
+                        return;
+                    }
+                    
+                    Utils.WasWarheadAnnounced = true;
+                }
+                
+                if (!Utils.IsWarheadOnCooldown)
+                {
+                    Utils.WarheadCooldown();
+
+                    Team playersTeam = ev.Player.Role.Team;
+                    Utils.WarheadCassie(Utils.ActualLeverState, playersTeam);
+                }
+                else
+                {
+                    Log.Debug("Warhead is on cooldown");
+                }
+            }
+            
+            Utils.ActualLeverState = ev.CurrentState;
         }
     }
 }

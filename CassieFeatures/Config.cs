@@ -55,5 +55,18 @@ namespace CassieFeatures
             "The Camera System has detected Chaos Insurgency Agents inside the Facility at {Gate}.";
         public bool ShouldCiEnteringFacilityCassieAnnouncementsBeNoisy { get; set; } = true;
         public bool ShouldCiEnteringFacilityCassieAnnouncementsHaveSubtitles { get; set; } = true;
+        [Description("Settings for Warhead (When someone turns it on):")]
+        public bool IsWarheadFeatureEnabled { get; set; } = true;
+        [Description("If set to false, the announcements will be on cooldown specified below. If set to true, cassie will announce it only one time")]
+        public bool ShouldWarheadAnnounceOnlyOneTime { get; set; } = false;
+        public int WarheadAnnouncementCooldown { get; set; } = 30;
+        public string WarheadAnnouncementTurningOnCassieAnnouncement { get; set; } = "Warhead has been turned on by {PlayersTeam}";
+        public string WarheadAnnouncementTurningOnCassieAnnouncementSubtitles { get; set; } = "Warhead has been turned on by {PlayersTeam}.";
+        public bool ShouldWarheadAnnouncementTurningOnBeNoisy { get; set; } = true;
+        public bool ShouldWarheadAnnouncementTurningOnHaveSubtitles { get; set; } = true;
+        public string WarheadAnnouncementTurningOffCassieAnnouncement { get; set; } = "Warhead has been turned off by {PlayersTeam}";
+        public string WarheadAnnouncementTurningOffCassieAnnouncementSubtitles { get; set; } = "Warhead has been turned off by {PlayersTeam}.";
+        public bool ShouldWarheadAnnouncementTurningOffBeNoisy { get; set; } = true;
+        public bool ShouldWarheadAnnouncementTurningOffHaveSubtitles { get; set; } = true;
     }
 }

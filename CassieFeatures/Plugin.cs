@@ -10,7 +10,7 @@ namespace CassieFeatures
         public override string Author => "iksemdem";
         public override string Name => "CassieFeatures";
         public override string Prefix => "cassie_features";
-        public override Version Version => new Version(1, 0, 0);
+        public override Version Version => new Version(1, 1, 0);
         public static Plugin Instance { get; private set; }
 
         public override void OnEnabled()
@@ -36,6 +36,7 @@ namespace CassieFeatures
             Exiled.Events.Handlers.Player.Died += _eventHandlers.OnDead;
             Exiled.Events.Handlers.Player.TriggeringTesla += _eventHandlers.TriggeringTesla;
             Exiled.Events.Handlers.Server.RespawningTeam += _eventHandlers.OnSpawn;
+            Exiled.Events.Handlers.Warhead.ChangingLeverStatus += _eventHandlers.OnChangingWarheadLever;
         }
 
         private void UnregisterEvents()
@@ -44,6 +45,7 @@ namespace CassieFeatures
             Exiled.Events.Handlers.Player.Died -= _eventHandlers.OnDead;
             Exiled.Events.Handlers.Player.TriggeringTesla -= _eventHandlers.TriggeringTesla;
             Exiled.Events.Handlers.Server.RespawningTeam -= _eventHandlers.OnSpawn;
+            Exiled.Events.Handlers.Warhead.ChangingLeverStatus -= _eventHandlers.OnChangingWarheadLever;
         }
     }
 }

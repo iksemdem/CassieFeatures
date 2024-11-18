@@ -1,6 +1,7 @@
 using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
+using MEC;
 using PlayerRoles;
 using UnityEngine;
 
@@ -10,7 +11,12 @@ namespace CassieFeatures
     {
         // This is for Camera Scanner SCP leaving facility
         public static bool WasScpSpottedOutside = false;
+        // This is for Camera Scanner CI entering facility
         public static bool WasCiSpottedInside = false;
+        // This is for Warhead lever change
+        public static bool ActualLeverState = false;
+        public static bool IsWarheadOnCooldown = false;
+        public static bool WasWarheadAnnounced = false;
 
         // This is for Tesla's cassie
         public static string ReplacePlaceholders(string input, Team team)
@@ -184,6 +190,51 @@ namespace CassieFeatures
                     "Collider Gate B Inside"; 
                 
                 Log.Debug("Successfully created colliders");
+            }
+        }
+
+        public static void WarheadCooldown()
+        {
+            IsWarheadOnCooldown = true;
+            Log.Debug("Warhead cooldown started");
+            Timing.CallDelayed(Plugin.Instance.Config.WarheadAnnouncementCooldown, () =>
+            {
+                IsWarheadOnCooldown = false;
+                Log.Debug("Warhead cooldown stopped");
+            }, Server.Host.GameObject);
+        }
+
+        public static void WarheadCassie(bool currentState, Team team)
+        {
+            if (currentState)
+            {
+                Log.Debug("Warhead turning on cassie");
+                string cassieMessage = Plugin.Instance.Config.WarheadAnnouncementTurningOnCassieAnnouncement;
+                string cassieText = Plugin.Instance.Config.WarheadAnnouncementTurningOnCassieAnnouncementSubtitles;
+                    
+                cassieMessage = ReplacePlaceholders(cassieMessage, team);
+                cassieText = ReplacePlaceholders(cassieText, team);
+                    
+                Log.Debug($"cassie warhead on is: {cassieMessage} , {cassieText}");
+                    
+                Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
+                    Plugin.Instance.Config.ShouldWarheadAnnouncementTurningOnBeNoisy,
+                    Plugin.Instance.Config.ShouldWarheadAnnouncementTurningOnHaveSubtitles);
+            }
+            else
+            {
+                Log.Debug("Warhead turning off cassie");
+                string cassieMessage = Plugin.Instance.Config.WarheadAnnouncementTurningOffCassieAnnouncement;
+                string cassieText = Plugin.Instance.Config.WarheadAnnouncementTurningOffCassieAnnouncementSubtitles;
+                    
+                cassieMessage = ReplacePlaceholders(cassieMessage, team);
+                cassieText = ReplacePlaceholders(cassieText, team);
+                    
+                Log.Debug($"cassie warhead off is: {cassieMessage} , {cassieText}");
+                    
+                Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
+                    Plugin.Instance.Config.ShouldWarheadAnnouncementTurningOffBeNoisy,
+                    Plugin.Instance.Config.ShouldWarheadAnnouncementTurningOffHaveSubtitles);
             }
         }
     }
