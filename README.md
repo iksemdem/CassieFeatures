@@ -20,6 +20,10 @@ Features for Camera Scanner:
 - The CASSIE knows where CI is (Gate A/B).
 - CASSIE announcement about CI can be played only one time per CI spawn (Configurable).
 
+Features for warhead:
+- Sends an announecement when someone changes the warhead status (Lever)
+- Can be on cooldown or just one time event
+
 There is no coroutine running, plugin checks if someone actually entered or exited the facility, by using colliders from unity.
 
 The plugin is almost fully translatable (without console logs), and almost fully customizable.
@@ -33,6 +37,8 @@ Here are the placeholders that you can use in CASSIE announcements
 | `Scp Leaves Facility`  | {ScpRole}  | SCPs role number | SCP 1 7 3 |
 | `Scp Leaves Facility`  | {Gate}  | Gate that SCP left | Gate B |
 | `Ci Enters Facility`  | {Gate}  | Gate that CI entered | Gate A |
+| `Warhead Status Change`  | {PlayersTeam}  | Players team | Class D Personnel |
+| `Warhead Status Change`  | {TeamMembersAlive}  | Number of teammates left | 7 |
 
 Default Config:
 ```yaml
@@ -71,4 +77,17 @@ cassie_features:
   ci_entering_facility_cassie_announcement_subtitles: 'The Camera System has detected Chaos Insurgency Agents inside the Facility at {Gate}.'
   should_ci_entering_facility_cassie_announcements_be_noisy: true
   should_ci_entering_facility_cassie_announcements_have_subtitles: true
+  # Settings for Warhead (When someone turns it on):
+  is_warhead_feature_enabled: true
+  # If set to false, the announcements will be on cooldown specified below. If set to true, cassie will announce it only one time
+  should_warhead_announce_only_one_time: false
+  warhead_announcement_cooldown: 30
+  warhead_announcement_turning_on_cassie_announcement: 'Warhead has been turned on by {PlayersTeam}'
+  warhead_announcement_turning_on_cassie_announcement_subtitles: 'Warhead has been turned on by {PlayersTeam}.'
+  should_warhead_announcement_turning_on_be_noisy: true
+  should_warhead_announcement_turning_on_have_subtitles: true
+  warhead_announcement_turning_off_cassie_announcement: 'Warhead has been turned off by {PlayersTeam}'
+  warhead_announcement_turning_off_cassie_announcement_subtitles: 'Warhead has been turned off by {PlayersTeam}.'
+  should_warhead_announcement_turning_off_be_noisy: true
+  should_warhead_announcement_turning_off_have_subtitles: true
 ```
