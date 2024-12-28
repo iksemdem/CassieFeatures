@@ -44,8 +44,8 @@ namespace CassieFeatures
             "The Camera System has detected {ScpRole} outside the Facility at {Gate}.";
         public bool ShouldScpLeavingCassieAnnouncementsBeNoisy { get; set; } = true;
         public bool ShouldScpLeavingCassieAnnouncementsHaveSubtitles { get; set; } = true;
-        [Description("Settings for Camera Scanner (When CI enters the Facility):")]
-        public bool IsCameraScannerLookingForCiEnteringFeatureEnabled { get; set; } = true;
+        [Description("Settings for Camera Scanner (When CI enters the Facility) (Warning! This feature is in the base game now! At the time of making this plugin, there is no way to turn it off. If you want to use both features, from the plugin and the base game, set this to true. Its False by default.):")]
+        public bool IsCameraScannerLookingForCiEnteringFeatureEnabled { get; set; } = false;
         [Description("If set to false, cassie wont announce CI untill next CI spawn (option below)")]
         public bool ShouldCameraScannerAnnounceCiEnteringOnlyOneTime { get; set; } = false;
         public int CassieDelaySinceCiEntering { get; set; } = 10;

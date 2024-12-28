@@ -1,7 +1,7 @@
 using Exiled.API.Enums;
 using Exiled.API.Features;
+using Exiled.API.Features.Roles;
 using MEC;
-using PlayerRoles;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -55,39 +55,43 @@ namespace CassieFeatures
                     
                     
                     
-                    RoleTypeId playersRole = pl.Role;
+                    Role playersRole = pl.Role;
                     Log.Debug($"players role is now: {playersRole}");
 
                     switch (playersRole)
                     {
-                        case RoleTypeId.Scp049:
+                        case Scp049Role:
                             scpText = "SCP 0 4 9";
                             break;
 
-                        case RoleTypeId.Scp0492:
+                        case Scp0492Role:
                             scpText = "SCP 0 4 9 2";
                             break;
 
-                        case RoleTypeId.Scp096:
+                        case Scp096Role:
                             scpText = "SCP 0 9 6";
                             break;
 
-                        case RoleTypeId.Scp106:
+                        case Scp106Role:
                             scpText = "SCP 1 0 6";
                             break;
 
-                        case RoleTypeId.Scp173:
+                        case Scp173Role:
                             scpText = "SCP 1 7 3";
                             break;
 
-                        case RoleTypeId.Scp3114:
+                        case Scp3114Role:
                             scpText = "SCP 3 1 1 4";
                             break;
 
-                        case RoleTypeId.Scp939:
+                        case Scp939Role:
                             scpText = "SCP 9 3 9";
                             break;
-
+                        
+                        case Scp1507Role:
+                            scpText = "SCP 1 5 0 7";
+                            break;
+                        
                         default:
                             scpText = "unspecified SCP";
                             Log.Error("[CassieFeatures] Unspecified SCP role exited the facility! Report this to the plugin manager");
@@ -106,7 +110,7 @@ namespace CassieFeatures
                             break;
                         default:
                             gate = "Unspecified Gate";
-                            Log.Error("SCP entered at unknown gate! Report this to the plugin manager");
+                            Log.Error("[CassieFeatures] SCP entered at unknown gate! Report this to the plugin manager");
                             break;
                     }
                     

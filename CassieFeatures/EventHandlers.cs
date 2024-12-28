@@ -4,6 +4,7 @@ using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Server;
 using Exiled.Events.EventArgs.Warhead;
+using Exiled.API.Features.Roles;
 using PlayerRoles;
 using Log = Exiled.API.Features.Log;
 
@@ -77,7 +78,7 @@ namespace CassieFeatures
 
         internal void OnSpawn(RespawningTeamEventArgs ev)
         {
-            if (ev.NextKnownTeam == Respawning.SpawnableTeamType.ChaosInsurgency)
+            if (ev.NextKnownTeam == Faction.FoundationEnemy)
             {
                 Log.Debug("chaos insurgency is spawning");
                 // if selected for it to happen only one time don't do the next part of the code

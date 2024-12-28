@@ -16,4 +16,9 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003APlugin_00601_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F3ea9ee3da01540f4ae641055f11fb6b975c00_003F79_003Fd4100ff2_003FPlugin_00601_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\Iksem\RiderProjects\CassieFeatures\packages\ExMod.Exiled.8.14.1\lib\net48\Exiled.API.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\Iksem\RiderProjects\CassieFeatures\packages\ExMod.Exiled.8.14.1\lib\net48\Assembly-CSharp-Publicized.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\Iksem\OneDrive\Desktop\important exiled stuff\Exiled Dependencies\UnityEngine.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\Iksem\RiderProjects\CassieFeatures\packages\ExMod.Exiled.9.1.1\lib\net48\Exiled.API.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\Iksem\OneDrive\Desktop\important exiled stuff\Exiled Dependencies\Assembly-CSharp-firstpass.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\mscorlib.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

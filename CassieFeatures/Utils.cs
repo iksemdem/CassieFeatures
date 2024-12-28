@@ -1,6 +1,7 @@
 using System.Linq;
 using Exiled.API.Enums;
 using Exiled.API.Features;
+using Exiled.API.Features.Roles;
 using MEC;
 using PlayerRoles;
 using UnityEngine;
