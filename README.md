@@ -68,8 +68,8 @@ cassie_features:
   scp_leaving_facility_cassie_announcement_subtitles: 'The Camera System has detected {ScpRole} outside the Facility at {Gate}.'
   should_scp_leaving_cassie_announcements_be_noisy: true
   should_scp_leaving_cassie_announcements_have_subtitles: true
-  # Settings for Camera Scanner (When CI enters the Facility):
-  is_camera_scanner_looking_for_ci_entering_feature_enabled: true
+  # Settings for Camera Scanner (When CI enters the Facility) (Warning! This feature is in the base game now! At the time of making this plugin, there is no way to turn it off. If you want to use both features, from the plugin and the base game, set this to true. Its False by default.):
+  is_camera_scanner_looking_for_ci_entering_feature_enabled: false
   # If set to false, cassie wont announce CI untill next CI spawn (option below)
   should_camera_scanner_announce_ci_entering_only_one_time: false
   cassie_delay_since_ci_entering: 10
