@@ -1,4 +1,5 @@
 using System.Linq;
+using CassieFeatures.Colliders;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Roles;
@@ -10,6 +11,7 @@ namespace CassieFeatures
 {
     public static class Utils
     {
+        private static BoxCollider colliderEscape1;
         // This is for Camera Scanner SCP leaving facility
         public static bool WasScpSpottedOutside = false;
         // This is for Camera Scanner CI entering facility
@@ -70,8 +72,8 @@ namespace CassieFeatures
         public static void ScpOnSurfaceCassie(string gate, string scpText)
         {
             Log.Debug("Sending SCP leaving facility cassie");
-            string cassieMessage = Plugin.Instance.Config.ScpLeavingFacilityCassieAnnouncement;
-            string cassieText = Plugin.Instance.Config.ScpLeavingFacilityCassieAnnouncementSubtitles;
+            string cassieMessage = Plugin.Instance.Config.ScpLeavingCassie.Content;
+            string cassieText = Plugin.Instance.Config.ScpLeavingCassie.Subtitles;
 
             cassieMessage = cassieMessage.Replace("{Gate}", gate).Replace("{ScpRole}", scpText);
             cassieText = cassieText.Replace("{Gate}", gate).Replace("{ScpRole}", scpText);
@@ -79,16 +81,16 @@ namespace CassieFeatures
             Log.Debug($"cassie on scp leaving facility: {cassieMessage} , {cassieText}");
             
             Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
-                Plugin.Instance.Config.ShouldScpLeavingCassieAnnouncementsBeNoisy,
-                Plugin.Instance.Config.ShouldScpLeavingCassieAnnouncementsHaveSubtitles);
+                Plugin.Instance.Config.ScpLeavingCassie.IsNoisy,
+                Plugin.Instance.Config.ScpLeavingCassie.ShowSubtitles);
         }
 
         // this is for Camera Scanner CI entering facility
         public static void CiInsideCassie(string gate)
         {
             Log.Debug("Sending CI entering facility cassie");
-            string cassieMessage = Plugin.Instance.Config.CiEnteringFacilityCassieAnnouncement;
-            string cassieText = Plugin.Instance.Config.CiEnteringFacilityCassieAnnouncementSubtitles;
+            string cassieMessage = Plugin.Instance.Config.CiEnteringCassie.Content;
+            string cassieText = Plugin.Instance.Config.CiEnteringCassie.Subtitles;
             
             cassieMessage = cassieMessage.Replace("{Gate}", gate);
             cassieText = cassieText.Replace("{Gate}", gate);
@@ -96,8 +98,8 @@ namespace CassieFeatures
             Log.Debug($"cassie on scp leaving facility: {cassieMessage} , {cassieText}");
 
             Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
-                Plugin.Instance.Config.ShouldCiEnteringFacilityCassieAnnouncementsBeNoisy,
-                Plugin.Instance.Config.ShouldCiEnteringFacilityCassieAnnouncementsHaveSubtitles);
+                Plugin.Instance.Config.CiEnteringCassie.IsNoisy,
+                Plugin.Instance.Config.CiEnteringCassie.ShowSubtitles);
         }
 
         public static void CreateColliders()
@@ -192,8 +194,56 @@ namespace CassieFeatures
                 
                 Log.Debug("Successfully created colliders");
             }
+            
+            // ===================
+            // === E S C A P E ===
+            // ===================
+
+            // This is for Collider which is for SCP escaping
+            // the ColliderEscapingTriggerHandler won't do anything if this is turned off
+            if (Plugin.Instance.Config.IsScpEscapeEnabled)
+            {
+                Log.Debug("Creating the escape collider");
+                
+                GameObject colliderEscapeObject = new GameObject("ColliderEscapeObject");
+                BoxCollider colliderEscape = colliderEscapeObject.AddComponent<BoxCollider>();
+
+                colliderEscape.size = new Vector3(13f, 4f, 10f);
+                colliderEscape.isTrigger = true;
+
+                colliderEscape.transform.position = new Vector3(127.5f, 989.75f, 24f);
+                
+                colliderEscapeObject.AddComponent<ColliderEscapingTriggerHandler>().colliderName =
+                    "Collider Escape";
+
+                colliderEscape1 = colliderEscape;
+                
+                Log.Debug("Successfully created colliders");
+                
+            }
+        }
+        
+        
+        // this is for SCP escaping
+        public static BoxCollider GetEscapeCollider()
+        {
+            return colliderEscape1;
         }
 
+        public static void ScpEscapedCassie(string scpText)
+        {
+            string cassieMessage = Plugin.Instance.Config.ScpEscapingCassie.Content;
+            string cassieText = Plugin.Instance.Config.ScpEscapingCassie.Subtitles;
+                    
+            cassieMessage = cassieMessage.Replace("{ScpRole}", scpText);
+            cassieText = cassieText.Replace("{ScpRole}", scpText);
+                    
+            Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
+                Plugin.Instance.Config.ScpEscapingCassie.IsNoisy,
+                Plugin.Instance.Config.ScpEscapingCassie.ShowSubtitles);
+        }
+        
+        // this is for warhead CASSIE
         public static void WarheadCooldown()
         {
             IsWarheadOnCooldown = true;
@@ -209,33 +259,45 @@ namespace CassieFeatures
         {
             if (currentState)
             {
-                Log.Debug("Warhead turning on cassie");
-                string cassieMessage = Plugin.Instance.Config.WarheadAnnouncementTurningOnCassieAnnouncement;
-                string cassieText = Plugin.Instance.Config.WarheadAnnouncementTurningOnCassieAnnouncementSubtitles;
+                if (Plugin.Instance.Config.IsWarheadAnnouncementTurningOnEnabled)
+                {
+                    Log.Debug("Warhead turning on cassie");
+                    string cassieMessage = Plugin.Instance.Config.WarheadTurningOnCassie.Content;
+                    string cassieText = Plugin.Instance.Config.WarheadTurningOnCassie.Subtitles;
                     
-                cassieMessage = ReplacePlaceholders(cassieMessage, team);
-                cassieText = ReplacePlaceholders(cassieText, team);
+                    cassieMessage = ReplacePlaceholders(cassieMessage, team);
+                    cassieText = ReplacePlaceholders(cassieText, team);
                     
-                Log.Debug($"cassie warhead on is: {cassieMessage} , {cassieText}");
+                    Log.Debug($"cassie warhead on is: {cassieMessage} , {cassieText}");
                     
-                Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
-                    Plugin.Instance.Config.ShouldWarheadAnnouncementTurningOnBeNoisy,
-                    Plugin.Instance.Config.ShouldWarheadAnnouncementTurningOnHaveSubtitles);
+                    Timing.CallDelayed(Plugin.Instance.Config.WarheadTurningOnCassie.Delay, () =>
+                    {
+                        Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
+                            Plugin.Instance.Config.WarheadTurningOnCassie.IsNoisy,
+                            Plugin.Instance.Config.WarheadTurningOnCassie.ShowSubtitles);
+                    }, Server.Host.GameObject);
+                }
             }
             else
             {
-                Log.Debug("Warhead turning off cassie");
-                string cassieMessage = Plugin.Instance.Config.WarheadAnnouncementTurningOffCassieAnnouncement;
-                string cassieText = Plugin.Instance.Config.WarheadAnnouncementTurningOffCassieAnnouncementSubtitles;
+                if (Plugin.Instance.Config.IsWarheadAnnouncementTurningOffEnabled)
+                {
+                    Log.Debug("Warhead turning off cassie");
+                    string cassieMessage = Plugin.Instance.Config.WarheadTurningOffCassie.Content;
+                    string cassieText = Plugin.Instance.Config.WarheadTurningOffCassie.Subtitles;
                     
-                cassieMessage = ReplacePlaceholders(cassieMessage, team);
-                cassieText = ReplacePlaceholders(cassieText, team);
+                    cassieMessage = ReplacePlaceholders(cassieMessage, team);
+                    cassieText = ReplacePlaceholders(cassieText, team);
                     
-                Log.Debug($"cassie warhead off is: {cassieMessage} , {cassieText}");
+                    Log.Debug($"cassie warhead off is: {cassieMessage} , {cassieText}");
                     
-                Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
-                    Plugin.Instance.Config.ShouldWarheadAnnouncementTurningOffBeNoisy,
-                    Plugin.Instance.Config.ShouldWarheadAnnouncementTurningOffHaveSubtitles);
+                    Timing.CallDelayed(Plugin.Instance.Config.WarheadTurningOffCassie.Delay, () =>
+                    {
+                        Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
+                            Plugin.Instance.Config.WarheadTurningOffCassie.IsNoisy,
+                            Plugin.Instance.Config.WarheadTurningOffCassie.ShowSubtitles);
+                    }, Server.Host.GameObject);
+                }
             }
         }
     }

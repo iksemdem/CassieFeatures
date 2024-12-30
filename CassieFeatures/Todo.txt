@@ -1,0 +1,3 @@
+A CASSIE announcement at the start of the round
+An option to lock and then open etc. some doors
+Ability for SCPs to escape with a command (and display a hint when they are there with a collider)

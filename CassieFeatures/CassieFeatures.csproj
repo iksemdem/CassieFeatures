@@ -35,13 +35,16 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Include="ColliderEnteringFacilityTriggerHandler.cs" />
-        <Compile Include="ColliderLeavingFacilityTriggerHandler.cs" />
+        <Compile Include="Colliders\ColliderEnteringFacilityTriggerHandler.cs" />
+        <Compile Include="Colliders\ColliderEscapingTriggerHandler.cs" />
+        <Compile Include="Colliders\ColliderLeavingFacilityTriggerHandler.cs" />
+        <Compile Include="Commands\EscapeCommand.cs" />
         <Compile Include="Config.cs" />
         <Compile Include="EventHandlers.cs" />
         <Compile Include="Plugin.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="Utils.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Utilities\CassieAnnouncement.cs" />
+        <Compile Include="Utilities\Utils.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="App.config" />
@@ -89,12 +92,16 @@
       <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
           <HintPath>..\packages\ExMod.Exiled.9.1.1\lib\net48\YamlDotNet.dll</HintPath>
       </Reference>
-      <Reference Include="System.ComponentModel.DataAnnotations" HintPath="$(EXILED_REFERENCES)\System.ComponentModel.DataAnnotations" Private="false"/>
+      <Reference Include="System.ComponentModel.DataAnnotations" HintPath="$(EXILED_REFERENCES)\System.ComponentModel.DataAnnotations" Private="false" />
       <Reference Include="UnityEngine" HintPath="$(EXILED_REFERENCES)\UnityEngine.dll" Private="false" />
       <Reference Include="UnityEngine.CoreModule" HintPath="$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll" Private="false" />
       <Reference Include="UnityEngine.PhysicsModule" HintPath="$(EXILED_REFERENCES)\UnityEngine.PhysicsModule.dll" Private="false" />
       <Reference Include="Assembly-CSharp-firstpass" HintPath="$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll" Private="false" />
       <Reference Include="Mirror" HintPath="$(EXILED_REFERENCES)\Mirror.dll" Private="false" />
+      <Reference Include="HintServiceMeow-Exiled" HintPath="$(EXILED_REFERENCES)\HintServiceMeow-Exiled.dll" Private="false" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="Todo.txt" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

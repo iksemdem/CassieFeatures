@@ -4,7 +4,7 @@ using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
 using Exiled.Events.EventArgs.Server;
 using Exiled.Events.EventArgs.Warhead;
-using Exiled.API.Features.Roles;
+using MEC;
 using PlayerRoles;
 using Log = Exiled.API.Features.Log;
 
@@ -49,17 +49,21 @@ namespace CassieFeatures
 
                 Log.Debug("Player was in the list of death teams");
 
-                var cassieMessage = Utils.ReplacePlaceholders(Plugin.Instance.Config.DeathOnTeslaCassieAnnouncement,
+                var cassieMessage = Utils.ReplacePlaceholders(Plugin.Instance.Config.TeslaCassie.Content,
                     playersOldTeam);
                 var cassieMessageText =
-                    Utils.ReplacePlaceholders(Plugin.Instance.Config.DeathOnTeslaCassieAnnouncementSubtitles,
+                    Utils.ReplacePlaceholders(Plugin.Instance.Config.TeslaCassie.Subtitles,
                         playersOldTeam);
+                
+                Timing.CallDelayed(Plugin.Instance.Config.TeslaCassie.Delay, () =>
+                {
+                    Cassie.MessageTranslated(cassieMessage, cassieMessageText, false,
+                        Plugin.Instance.Config.TeslaCassie.IsNoisy,
+                        Plugin.Instance.Config.TeslaCassie.ShowSubtitles);
+                    Log.Debug(
+                        $"Sent cassie: {cassieMessage}, with subtitles: {cassieMessageText}, was it noisy: {Plugin.Instance.Config.TeslaCassie.IsNoisy}, did it had subtitles: {Plugin.Instance.Config.TeslaCassie.ShowSubtitles}");
+                }, Server.Host.GameObject);
 
-                Cassie.MessageTranslated(cassieMessage, cassieMessageText, false,
-                    Plugin.Instance.Config.ShouldTeslaCassieAnnouncementsBeNoisy,
-                    Plugin.Instance.Config.ShouldTeslaCassieAnnouncementsHaveSubtitles);
-                Log.Debug(
-                    $"Sent cassie: {cassieMessage}, with subtitles: {cassieMessageText}, was it noisy: {Plugin.Instance.Config.ShouldTeslaCassieAnnouncementsBeNoisy}, did it had subtitles: {Plugin.Instance.Config.ShouldTeslaCassieAnnouncementsHaveSubtitles}");
             }
         }
 

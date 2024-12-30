@@ -4,7 +4,7 @@ using PlayerRoles;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace CassieFeatures
+namespace CassieFeatures.Colliders
 {
     public class ColliderEnteringFacilityTriggerHandler : MonoBehaviour
     {
@@ -64,7 +64,7 @@ namespace CassieFeatures
                     Log.Debug($"gate is now {gate}");
 
                     Log.Debug("starting the cassie delay");
-                    Timing.CallDelayed(Plugin.Instance.Config.CassieDelaySinceCiEntering, () =>
+                    Timing.CallDelayed(Plugin.Instance.Config.CiEnteringCassie.Delay, () =>
                     {
                         Utils.CiInsideCassie(gate);
                         

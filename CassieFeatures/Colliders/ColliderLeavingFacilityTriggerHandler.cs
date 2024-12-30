@@ -5,7 +5,7 @@ using MEC;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace CassieFeatures
+namespace CassieFeatures.Colliders
 {
     public class ColliderLeavingFacilityTriggerHandler : MonoBehaviour
     {
@@ -117,7 +117,7 @@ namespace CassieFeatures
                     Log.Debug($"gate is now {gate}");
 
                     Log.Debug("starting the cassie delay");
-                    Timing.CallDelayed(Plugin.Instance.Config.CassieDelaySinceScpLeaving, () =>
+                    Timing.CallDelayed(Plugin.Instance.Config.ScpLeavingCassie.Delay, () =>
                     {
                         if (Plugin.Instance.Config.ShouldCassieCheckIfScpIsStillOnSurfaceAfterTheDelay)
                         {
