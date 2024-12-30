@@ -50,7 +50,6 @@ Here are the placeholders that you can use in hints
 Default Config:
 ```yaml
 cassie_features:
-cassie_features:
 # General:
   is_enabled: true
   debug: false
