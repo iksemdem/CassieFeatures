@@ -30,12 +30,19 @@ Features for warhead:
 - Sends an announecement when someone changes the warhead status (Lever).
 - Can be on cooldown or just one time event.
 
-Other features:
+Features for SCPs:
 - Allows SCPs to escape with a configurable command.
 - Displays a hint when player can escape.
 - Sends CASSIE after SCP escapes.
 
-There is no coroutine running, plugin checks if someone actually entered, exited or escpaed the facility, by using colliders from unity.
+Features for doors:
+- You can lock almost every door at the start of the round.
+- You can open/lock/unlock/destroy almost every door after setted time.
+
+Features for CASSIE announcements:
+- You can set delayed announcements (since start of the round).
+
+There is no coroutine running for Camera Scanner, plugin checks if someone actually entered, exited or escpaed the facility, by using colliders from unity.
 
 The plugin is almost fully translatable (without console logs), and almost fully customizable.
 
@@ -65,7 +72,7 @@ Default Config:
 cassie_features:
 # General:
   is_enabled: true
-  debug: false
+  debug: true
   # Settings for Tesla:
   is_tesla_feature_enabled: true
   tesla_does_not_activate_on_teams:
@@ -139,4 +146,37 @@ cassie_features:
     show_subtitles: true
     is_noisy: true
     delay: 15
+  # Settings for Door Locker:
+  is_locking_doors_enabled: true
+  # LockedDoors are doors that are locked at the start of the round, use DoorsAction to open/unlock/destroy doors
+  locked_doors:
+  - PrisonDoor
+  - CheckpointLczA
+  - CheckpointLczB
+  doors_action:
+  - door_type: PrisonDoor
+    delay: 20
+    open: true
+    unlock: true
+    lock: false
+    destroy: false
+  - door_type: CheckpointLczA
+    delay: 60
+    open: false
+    unlock: true
+    lock: false
+    destroy: false
+  - door_type: CheckpointLczB
+    delay: 60
+    open: false
+    unlock: true
+    lock: false
+    destroy: false
+  # Here you can put your timed CASSIEs, delay starts at the start of the round.
+  cassie_announcements:
+  - content: 'attention all personnel . cassie has lost control of the door controlling system'
+    subtitles: 'Attention all personnel. C.A.S.S.I.E. has lost control of the Door Controlling System'
+    show_subtitles: true
+    is_noisy: true
+    delay: 10
 ```
