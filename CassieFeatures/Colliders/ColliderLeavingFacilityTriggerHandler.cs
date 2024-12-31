@@ -32,7 +32,7 @@ namespace CassieFeatures.Colliders
                     
                     // checking if scp was already outside
                     Log.Debug("Checking if scp was already outside");
-                    if (Utils.WasScpSpottedOutside)
+                    if (EventHandlers.WasScpSpottedOutside)
                     {
                         Log.Debug("Scp was outside");
                         
@@ -50,7 +50,7 @@ namespace CassieFeatures.Colliders
                     {
                         Log.Debug("Scp was not outside");
                         Log.Debug("Setting that scp was outside");
-                        Utils.WasScpSpottedOutside = true;
+                        EventHandlers.WasScpSpottedOutside = true;
                     }
                     
                     
@@ -125,20 +125,20 @@ namespace CassieFeatures.Colliders
                             if (pl.Zone != ZoneType.Surface)
                             {
                                 Log.Debug("Scp is not on the surface, stopping logic");
-                                Utils.WasScpSpottedOutside = false;
+                                EventHandlers.WasScpSpottedOutside = false;
                                 return;
                             }
                             else
                             {
                                 Log.Debug("scp is still outside");
-                                Utils.WasScpSpottedOutside = false;
+                                EventHandlers.WasScpSpottedOutside = false;
                             }
                             
                         }
                         
                         // checking if scp was outside while the delay was delaying bruh
                         Log.Debug("checking if scp was outside while delay");
-                        if (Utils.WasScpSpottedOutside)
+                        if (EventHandlers.WasScpSpottedOutside)
                         {
                             Log.Debug("Scp was outside while delay");
                         
@@ -156,10 +156,10 @@ namespace CassieFeatures.Colliders
                         {
                             Log.Debug("Scp was not outside while delay");
                             Log.Debug("setting that scp was now spotted by cassie");
-                            Utils.WasScpSpottedOutside = true;
+                            EventHandlers.WasScpSpottedOutside = true;
                         }
                         
-                        Utils.ScpOnSurfaceCassie(gate, scpText); 
+                        Utilities.HandleCassieAnnouncements.ScpOnSurfaceCassie(gate, scpText); 
 
                     }, Server.Host.GameObject);
                 }

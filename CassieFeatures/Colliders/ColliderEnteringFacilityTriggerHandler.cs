@@ -32,7 +32,7 @@ namespace CassieFeatures.Colliders
                     
                     // checking if ci was already inside
                     Log.Debug("checking if ci was already inside");
-                    if (Utils.WasCiSpottedInside)
+                    if (EventHandlers.WasCiSpottedInside)
                     {
                         Log.Debug("ci was inside");
                         Log.Debug("stopping the logic");
@@ -45,7 +45,7 @@ namespace CassieFeatures.Colliders
                     
                     // setting that ci was spotted
                     Log.Debug("setting that ci was inside");
-                    Utils.WasCiSpottedInside = true;
+                    EventHandlers.WasCiSpottedInside = true;
 
                     switch (colliderName)
                     {
@@ -66,7 +66,7 @@ namespace CassieFeatures.Colliders
                     Log.Debug("starting the cassie delay");
                     Timing.CallDelayed(Plugin.Instance.Config.CiEnteringCassie.Delay, () =>
                     {
-                        Utils.CiInsideCassie(gate);
+                        Utilities.HandleCassieAnnouncements.CiInsideCassie(gate);
                         
                     }, Server.Host.GameObject);
                 }

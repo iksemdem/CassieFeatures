@@ -44,6 +44,12 @@
         <Compile Include="Plugin.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Utilities\CassieAnnouncement.cs" />
+        <Compile Include="Utilities\HandleDoorAction.cs" />
+        <Compile Include="Utilities\HandleCassieAnnouncements.cs" />
+        <Compile Include="Utilities\HandleCooldowns.cs" />
+        <Compile Include="Utilities\HandleCreatingColliders.cs" />
+        <Compile Include="Utilities\HandleReplacingPlaceholders.cs" />
+        <Compile Include="Utilities\LockedDoor.cs" />
         <Compile Include="Utilities\Utils.cs" />
     </ItemGroup>
     <ItemGroup>

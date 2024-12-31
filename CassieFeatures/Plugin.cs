@@ -10,7 +10,7 @@ namespace CassieFeatures
         public override string Author => "iksemdem";
         public override string Name => "CassieFeatures";
         public override string Prefix => "cassie_features";
-        public override Version Version => new Version(1, 3, 0);
+        public override Version Version => new Version(1, 4, 0);
         public static Plugin Instance { get; private set; }
 
         public override void OnEnabled()
@@ -32,6 +32,7 @@ namespace CassieFeatures
 
         private void RegisterEvents()
         {
+            Exiled.Events.Handlers.Server.WaitingForPlayers += _eventHandlers.OnWaitingForPlayers;
             Exiled.Events.Handlers.Server.RoundStarted += _eventHandlers.OnRoundStart;
             Exiled.Events.Handlers.Player.Died += _eventHandlers.OnDead;
             Exiled.Events.Handlers.Player.TriggeringTesla += _eventHandlers.TriggeringTesla;

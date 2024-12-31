@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using CassieFeatures.Utilities;
 using Exiled.API.Enums;
 using Exiled.API.Interfaces;
 using PlayerRoles;
@@ -102,5 +103,52 @@ namespace CassieFeatures
             true,
             true,
             15);
+
+        
+        
+        [Description("Settings for Door Locker:")]
+        public bool IsLockingDoorsEnabled { get; set; } = true;
+        [Description("LockedDoors are doors that are locked at the start of the round, use DoorsAction to open/unlock/destroy doors")]
+        public List<DoorType> LockedDoors { get; set; } = new List<DoorType>
+        {
+            DoorType.PrisonDoor,
+            DoorType.CheckpointLczA,
+            DoorType.CheckpointLczB,
+        };
+        public List<LockedDoor> DoorsAction { get; set; } = new List<LockedDoor>
+        {
+            new LockedDoor(
+                DoorType.PrisonDoor,
+                20,
+                true,
+                true,
+                false,
+                false),
+            new LockedDoor(
+                DoorType.CheckpointLczA,
+                60,
+                false,
+                true,
+                false,
+                false),
+            new LockedDoor(
+            DoorType.CheckpointLczB,
+            60,
+            false,
+            true,
+            false,
+            false),
+        };
+
+        [Description("Here you can put your timed CASSIEs, delay starts at the start of the round.")]
+        public List<CassieAnnouncement> CassieAnnouncements { get; set; } = new List<CassieAnnouncement>
+        {
+            new CassieAnnouncement(
+                "attention all personnel . cassie has lost control of the door controlling system",
+                "Attention all personnel. C.A.S.S.I.E. has lost control of the Door Controlling System",
+                true,
+                true,
+                10),
+        };
     }
 }

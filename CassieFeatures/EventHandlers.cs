@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CassieFeatures.Utilities;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
@@ -12,20 +13,43 @@ namespace CassieFeatures
 {
     internal class EventHandlers
     {
+        // This is for warhead event
+        public static bool WasWarheadAnnounced = false;
+        public static bool ActualLeverState = false;
+        
+        // This is for Camera Scanner CI entering facility
+        public static bool WasCiSpottedInside = false;
+        
+        // This is for Camera Scanner SCP leaving facility
+        public static bool WasScpSpottedOutside = false;
+        
+        
+        
+        internal void OnWaitingForPlayers()
+        {
+            // This is for Door Locker
+            HandleDoorAction.LockDoors();
+        }
         internal void OnRoundStart()
         {
             // Creating colliders for gate A and B, both inside and outside
-            Utils.CreateColliders();
+            HandleCreatingColliders.CreateColliders();
             
             // This is for Camera Scanner SCP leaving facility
             Log.Debug("setting that scp was not inside");
-            Utils.WasScpSpottedOutside = false;
+            WasScpSpottedOutside = false;
             // This is for Camera Scanner CI entering facility
             Log.Debug("setting that ci was not inside");
-            Utils.WasCiSpottedInside = false;
+            WasCiSpottedInside = false;
             // This is for Warhead lever change
             Log.Debug("setting warhead lever status to true");
-            Utils.ActualLeverState = true;
+            ActualLeverState = true;
+            
+            // This is for Door Locker
+            HandleDoorAction.ActionOnDoor();
+            
+            // This is for timed CASSIEs
+            HandleCassieAnnouncements.SendTimedCassies();
         }
 
         internal void OnDead(DiedEventArgs ev)
@@ -49,10 +73,10 @@ namespace CassieFeatures
 
                 Log.Debug("Player was in the list of death teams");
 
-                var cassieMessage = Utils.ReplacePlaceholders(Plugin.Instance.Config.TeslaCassie.Content,
+                var cassieMessage = HandleReplacingPlaceholders.ReplacePlaceholdersTeam(Plugin.Instance.Config.TeslaCassie.Content,
                     playersOldTeam);
                 var cassieMessageText =
-                    Utils.ReplacePlaceholders(Plugin.Instance.Config.TeslaCassie.Subtitles,
+                    HandleReplacingPlaceholders.ReplacePlaceholdersTeam(Plugin.Instance.Config.TeslaCassie.Subtitles,
                         playersOldTeam);
                 
                 Timing.CallDelayed(Plugin.Instance.Config.TeslaCassie.Delay, () =>
@@ -92,7 +116,7 @@ namespace CassieFeatures
                     return;
                 }
 
-                Utils.WasCiSpottedInside = false;
+                WasCiSpottedInside = false;
                 Log.Debug("ci spawned, the feature to announce only one time is turned on, so setting that ci was not inside");
             }
         }
@@ -101,26 +125,25 @@ namespace CassieFeatures
         {
             Log.Debug("changing warhead lever");
             Log.Debug($"Old lever status is: {ev.CurrentState}");
-            Log.Debug($"Current lever status is: {Utils.ActualLeverState}");
+            Log.Debug($"Current lever status is: {ActualLeverState}");
             
             if (Plugin.Instance.Config.IsWarheadFeatureEnabled)
             {
                 if (Plugin.Instance.Config.ShouldWarheadAnnounceOnlyOneTime)
                 {
-                    if (Utils.WasWarheadAnnounced)
+                    if (WasWarheadAnnounced)
                     {
                         return;
                     }
-                    
-                    Utils.WasWarheadAnnounced = true;
+                    WasWarheadAnnounced = true;
                 }
                 
-                if (!Utils.IsWarheadOnCooldown)
+                if (!Utilities.HandleCooldowns.IsWarheadOnCooldown)
                 {
-                    Utils.WarheadCooldown();
+                    HandleCooldowns.WarheadCooldown();
 
                     Team playersTeam = ev.Player.Role.Team;
-                    Utils.WarheadCassie(Utils.ActualLeverState, playersTeam);
+                    HandleCassieAnnouncements.WarheadCassie(ActualLeverState, playersTeam);
                 }
                 else
                 {
@@ -128,7 +151,7 @@ namespace CassieFeatures
                 }
             }
             
-            Utils.ActualLeverState = ev.CurrentState;
+            ActualLeverState = ev.CurrentState;
         }
     }
 }
