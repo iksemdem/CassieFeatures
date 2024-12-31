@@ -8,6 +8,12 @@
 
 This plugin adds few features to CASSIE. Not the CASSIE as the announcement system, but as the CASSIE functions
 
+Install:
+- 1 Download latest release, and put CassieFeatures.dll into `.config/EXILED/Plugins`
+- 2 Download HintServiceMeow latest release (https://github.com/MeowServer/HintServiceMeow/releases/latest), and put it into `.config/EXILED/Plugins/Dependencies`
+- 3 Restart the server, and configure the plugin in `.config/EXILED/Configs/YourPort-config.yml`
+- 4 You're ready to go!
+
 Features for tesla:
  - Disables teslas for selected teams.
  - Announces when selected teams die due to tesla gate.
@@ -16,15 +22,20 @@ Features for tesla:
 Features for Camera Scanner:
 - Sends an announcement when SCP leaves the facility, and is there for setted time.
 - The CASSIE knows what SCP it is, and where it is (Gate A/B).
-- Sends an announcement when CI enters the facility.
+- Sends an announcement when CI enters the facility. (Disabled by default, as the base game covers this feature as of 14.0)
 - The CASSIE knows where CI is (Gate A/B).
 - CASSIE announcement about CI can be played only one time per CI spawn (Configurable).
 
 Features for warhead:
-- Sends an announecement when someone changes the warhead status (Lever)
-- Can be on cooldown or just one time event
+- Sends an announecement when someone changes the warhead status (Lever).
+- Can be on cooldown or just one time event.
 
-There is no coroutine running, plugin checks if someone actually entered or exited the facility, by using colliders from unity.
+Other features:
+- Allows SCPs to escape with a configurable command.
+- Displays a hint when player can escape.
+- Sends CASSIE after SCP escapes.
+
+There is no coroutine running, plugin checks if someone actually entered, exited or escpaed the facility, by using colliders from unity.
 
 The plugin is almost fully translatable (without console logs), and almost fully customizable.
 
@@ -46,6 +57,8 @@ Here are the placeholders that you can use in hints
 | What hint | Input | Output | Output Example |
 | ------------- | ------------- | ------------- | ------------- |
 | `While player can escape`  | {CommandName}  | Name of the escape command | escape |
+
+**This plugin is using HintServiceMeow**
 
 Default Config:
 ```yaml
