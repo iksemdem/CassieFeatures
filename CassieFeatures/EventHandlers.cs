@@ -14,14 +14,14 @@ namespace CassieFeatures
     internal class EventHandlers
     {
         // This is for warhead event
-        public static bool WasWarheadAnnounced = false;
-        public static bool ActualLeverState = false;
+        public static bool WasWarheadAnnounced;
+        public static bool ActualLeverState;
         
         // This is for Camera Scanner CI entering facility
-        public static bool WasCiSpottedInside = false;
+        public static bool WasCiSpottedInside;
         
         // This is for Camera Scanner SCP leaving facility
-        public static bool WasScpSpottedOutside = false;
+        public static bool WasScpSpottedOutside;
         
         
         
@@ -138,7 +138,7 @@ namespace CassieFeatures
                     WasWarheadAnnounced = true;
                 }
                 
-                if (!Utilities.HandleCooldowns.IsWarheadOnCooldown)
+                if (!HandleCooldowns.IsWarheadOnCooldown)
                 {
                     HandleCooldowns.WarheadCooldown();
 

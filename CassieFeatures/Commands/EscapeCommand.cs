@@ -1,7 +1,6 @@
 using System;
 using CommandSystem;
 using Exiled.API.Features;
-using Exiled.API.Features.Roles;
 using HintServiceMeow.Core.Utilities;
 using MEC;
 using UnityEngine;
