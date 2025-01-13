@@ -10,7 +10,7 @@ namespace CassieFeatures
         public override string Author => "iksemdem";
         public override string Name => "CassieFeatures";
         public override string Prefix => "cassie_features";
-        public override Version Version => new Version(1, 4, 1);
+        public override Version Version => new Version(1, 4, 2);
         public static Plugin Instance { get; private set; }
 
         public override void OnEnabled()

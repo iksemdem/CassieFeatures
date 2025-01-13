@@ -6,7 +6,6 @@ namespace CassieFeatures.Utilities
     {
         public LockedDoor()
         {
-            
         }
 
         public LockedDoor(DoorType doorType, int delay, bool open, bool unlock, bool @lock, bool destroy)

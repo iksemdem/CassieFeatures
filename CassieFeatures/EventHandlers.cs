@@ -28,7 +28,10 @@ namespace CassieFeatures
         internal void OnWaitingForPlayers()
         {
             // This is for Door Locker
-            HandleDoorAction.LockDoors();
+            if (Plugin.Instance.Config.IsLockingDoorsEnabled)
+            {
+                HandleDoorAction.LockDoors();
+            }
         }
         internal void OnRoundStart()
         {
@@ -44,9 +47,12 @@ namespace CassieFeatures
             // This is for Warhead lever change
             Log.Debug("setting warhead lever status to true");
             ActualLeverState = true;
-            
+
             // This is for Door Locker
-            HandleDoorAction.ActionOnDoor();
+            if (Plugin.Instance.Config.IsLockingDoorsEnabled)
+            {
+                HandleDoorAction.ActionOnDoor();
+            }
             
             // This is for timed CASSIEs
             HandleCassieAnnouncements.SendTimedCassies();

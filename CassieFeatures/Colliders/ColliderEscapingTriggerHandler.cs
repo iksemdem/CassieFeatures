@@ -11,21 +11,12 @@ namespace CassieFeatures.Colliders
         [FormerlySerializedAs("ColliderName")] public string colliderName;
 
         private DynamicHint _currentHint;
-
-        public DynamicHint CurrentHint => _currentHint;
-        
-        public DynamicHint GetHint()
-        {
-            return _currentHint;
-        }
         void OnTriggerEnter(Collider other)
         {
-            // If not player then return
             if (!other.CompareTag("Player")) return;
 
             Log.Debug($"{colliderName} entered by player");
-
-            // Getting player that triggered the collider
+            
             if (Player.TryGet(other.gameObject, out Player pl))
             {
                 if (!pl.IsScp) return;
@@ -47,12 +38,10 @@ namespace CassieFeatures.Colliders
 
         void OnTriggerExit(Collider other)
         {
-            // If not player then return
             if (!other.CompareTag("Player")) return;
 
             Log.Debug($"{colliderName} exited by player");
-
-            // Getting player that triggered the collider
+            
             if (Player.TryGet(other.gameObject, out Player pl))
             {
                 if (!pl.IsScp) return;

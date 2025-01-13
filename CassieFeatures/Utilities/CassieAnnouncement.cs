@@ -1,4 +1,4 @@
-namespace CassieFeatures
+namespace CassieFeatures.Utilities
 {
     public class CassieAnnouncement
     {
