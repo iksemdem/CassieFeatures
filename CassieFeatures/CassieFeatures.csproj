@@ -55,7 +55,7 @@
       <None Include="App.config" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="ExMod.Exiled" version="9.2.1" />
+      <PackageReference Include="ExMod.Exiled" version="9.4.0" />
       <PackageReference Include="System.ComponentModel" version="4.3.0" />
       <PackageReference Include="System.ComponentModel.Annotations" version="5.0.0" />
     </ItemGroup>

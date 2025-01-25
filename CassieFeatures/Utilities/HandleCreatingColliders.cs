@@ -26,12 +26,15 @@ namespace CassieFeatures.Utilities
                 GameObject colliderGateAOutsideObject = new GameObject("ColliderGateAOutsideObject");
                 BoxCollider colliderGateAOutside = colliderGateAOutsideObject.AddComponent<BoxCollider>();
                 
-                colliderGateAOutside.size = new Vector3(1f, 2.4f, 1.4f);
+                // This does not work, ill leave it commented tho
+                //colliderGateAOutsideObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                
+                colliderGateAOutside.size = new Vector3(1f, 0.3f, 1.4f);
                 colliderGateAOutside.isTrigger = true;
                 
                 // Gate A Outside elevator exit position
                 // Surface position is fixed, so I don't attach this to a room
-                colliderGateAOutsideObject.transform.position = new Vector3(-10.1f, 1001.15f, 0.5f);
+                colliderGateAOutsideObject.transform.position = new Vector3(-10.1f, 1000.1f, 0.5f);
 
                 colliderGateAOutsideObject.AddComponent<ColliderLeavingFacilityTriggerHandler>().colliderName =
                     "Collider Gate A Outside";
@@ -40,16 +43,19 @@ namespace CassieFeatures.Utilities
                 GameObject colliderGateBOutsideObject = new GameObject("ColliderGateBOutsideObject");
                 BoxCollider colliderGateBOutside = colliderGateBOutsideObject.AddComponent<BoxCollider>();
                 
-                colliderGateBOutside.size = new Vector3(1.4f, 2.41f, 1f);
+                // This does not work, ill leave it commented tho
+                //colliderGateBOutsideObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                
+                colliderGateBOutside.size = new Vector3(1.4f, 0.3f, 1f);
                 colliderGateBOutside.isTrigger = true;
                 
                 // Gate B Outside elevator exit position
-                colliderGateBOutsideObject.transform.position = new Vector3(63.7f, 995.9f, -33f);
+                colliderGateBOutsideObject.transform.position = new Vector3(63.7f, 994.9f, -33f);
 
                 colliderGateBOutsideObject.AddComponent<ColliderLeavingFacilityTriggerHandler>().colliderName =
                     "Collider Gate B Outside";
                 
-                Log.Debug("Successfully created colliders");
+                Log.Debug("Successfully created Outside colliders");
             }
             
             // ===================
@@ -67,12 +73,15 @@ namespace CassieFeatures.Utilities
                 GameObject colliderGateAInsideObject = new GameObject("ColliderGateAInsideObject");
                 BoxCollider colliderGateAInside = colliderGateAInsideObject.AddComponent<BoxCollider>();
                 
-                colliderGateAInside.size = new Vector3(1f, 2.4f, 1.4f);
+                // This does not work, ill leave it commented tho
+                //colliderGateAInsideObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                
+                colliderGateAInside.size = new Vector3(1f, 0.3f, 1.4f);
                 colliderGateAInside.isTrigger = true;
                 
                 // Gate A Inside elevator exit position
                 // Unlike surface, this position isn't fixed so we need to attach a room
-                Vector3 gateARoomOffset = new Vector3(-4.65f, 1.15f, -3.8f);
+                Vector3 gateARoomOffset = new Vector3(-4.65f, 0.1f, -3.8f);
                 Vector3 gateAFinalPosition = Room.Get(RoomType.EzGateA).WorldPosition(gateARoomOffset);
                 Log.Debug($"gate a inside collider position is {gateAFinalPosition}");
                 
@@ -85,12 +94,15 @@ namespace CassieFeatures.Utilities
                 GameObject colliderGateBInsideObject = new GameObject("ColliderGateBInsideObject");
                 BoxCollider colliderGateBInside = colliderGateBInsideObject.AddComponent<BoxCollider>();
                 
-                colliderGateBInside.size = new Vector3(1.4f, 2.4f, 1f);
+                // This does not work, ill leave it commented tho
+                //colliderGateBInsideObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                
+                colliderGateBInside.size = new Vector3(1.4f, 0.3f, 1f);
                 colliderGateBInside.isTrigger = true;
                 
                 // Gate B Inside elevator exit position
                 // Unlike surface, this position isn't fixed so we need to attach a room
-                Vector3 gateBRoomOffset = new Vector3(-5.4f, 1.15f, -10f);
+                Vector3 gateBRoomOffset = new Vector3(-5.4f, 0.1f, -10f);
                 Vector3 gateBFinalPosition = Room.Get(RoomType.EzGateB).WorldPosition(gateBRoomOffset);
                 Log.Debug($"gate b inside collider position is {gateBFinalPosition}");
                 
@@ -99,7 +111,7 @@ namespace CassieFeatures.Utilities
                 colliderGateBInsideObject.AddComponent<ColliderEnteringFacilityTriggerHandler>().colliderName =
                     "Collider Gate B Inside"; 
                 
-                Log.Debug("Successfully created colliders");
+                Log.Debug("Successfully created Inside colliders");
             }
             
             // ===================
@@ -115,19 +127,23 @@ namespace CassieFeatures.Utilities
                 GameObject colliderEscapeObject = new GameObject("ColliderEscapeObject");
                 BoxCollider colliderEscape = colliderEscapeObject.AddComponent<BoxCollider>();
 
-                colliderEscape.size = new Vector3(13f, 4f, 10f);
+                // This does not work, ill leave it commented tho
+                //colliderEscapeObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                
+                colliderEscape.size = new Vector3(13f, 0.3f, 10f);
                 colliderEscape.isTrigger = true;
 
-                colliderEscape.transform.position = new Vector3(127.5f, 989.75f, 24f);
+                colliderEscape.transform.position = new Vector3(127.5f, 988.2f, 24f);
                 
                 colliderEscapeObject.AddComponent<ColliderEscapingTriggerHandler>().colliderName =
                     "Collider Escape";
 
                 _colliderEscape = colliderEscape;
                 
-                Log.Debug("Successfully created colliders");
+                Log.Debug("Successfully created Escape collider");
                 
             }
+            Log.Debug("Successfully created all colliders");
         }
         
         // this is for SCP escaping

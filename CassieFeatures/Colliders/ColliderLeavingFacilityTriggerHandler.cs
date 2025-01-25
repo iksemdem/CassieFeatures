@@ -1,3 +1,4 @@
+using CassieFeatures.Utilities;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Features.Roles;
@@ -58,45 +59,7 @@ namespace CassieFeatures.Colliders
                     Role playersRole = pl.Role;
                     Log.Debug($"players role is now: {playersRole}");
 
-                    switch (playersRole)
-                    {
-                        case Scp049Role:
-                            scpText = "SCP 0 4 9";
-                            break;
-
-                        case Scp0492Role:
-                            scpText = "SCP 0 4 9 2";
-                            break;
-
-                        case Scp096Role:
-                            scpText = "SCP 0 9 6";
-                            break;
-
-                        case Scp106Role:
-                            scpText = "SCP 1 0 6";
-                            break;
-
-                        case Scp173Role:
-                            scpText = "SCP 1 7 3";
-                            break;
-
-                        case Scp3114Role:
-                            scpText = "SCP 3 1 1 4";
-                            break;
-
-                        case Scp939Role:
-                            scpText = "SCP 9 3 9";
-                            break;
-                        
-                        case Scp1507Role:
-                            scpText = "SCP 1 5 0 7";
-                            break;
-                        
-                        default:
-                            scpText = "unspecified SCP";
-                            Log.Error("[CassieFeatures] Unspecified SCP role exited the facility! Report this to the plugin manager");
-                            break;
-                    }
+                    scpText = HandleReplacingPlaceholders.ReplacePlaceholdersScpRole("{ScpRole}", playersRole);
                     
                     Log.Debug($"scp text is now: {scpText}");
 
@@ -159,7 +122,7 @@ namespace CassieFeatures.Colliders
                             EventHandlers.WasScpSpottedOutside = true;
                         }
                         
-                        Utilities.HandleCassieAnnouncements.ScpOnSurfaceCassie(gate, scpText); 
+                        HandleCassieAnnouncements.ScpOnSurfaceCassie(gate, scpText); 
 
                     }, Server.Host.GameObject);
                 }

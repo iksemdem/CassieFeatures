@@ -48,7 +48,7 @@ namespace CassieFeatures.Utilities
                     Log.Debug($"Starting actions for a {door.DoorType} with delay {door.Delay}");
                     Timing.CallDelayed(door.Delay, () =>
                     {
-                        Log.Debug("Executing actions on a {door.DoorType}:");
+                        Log.Debug($"Executing actions on a {door.DoorType}:");
 
                         if (door.Open)
                         {

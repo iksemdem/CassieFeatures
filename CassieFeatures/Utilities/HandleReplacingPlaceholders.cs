@@ -44,8 +44,7 @@ namespace CassieFeatures.Utilities
                 { typeof(Scp106Role), "SCP 1 0 6" },
                 { typeof(Scp173Role), "SCP 1 7 3" },
                 { typeof(Scp3114Role), "SCP 3 1 1 4" },
-                { typeof(Scp939Role), "SCP 9 3 9" },
-                { typeof(Scp1507Role), "SCP 1 5 0 7" }
+                { typeof(Scp939Role), "SCP 9 3 9" }
             };
             
             if (scpRoleTexts.TryGetValue(scpRole.GetType(), out string scpText))
@@ -53,7 +52,7 @@ namespace CassieFeatures.Utilities
                 return input.Replace("{ScpRole}", scpText);
             }
             
-            Log.Error("[CassieFeatures] Unspecified SCP role was used! Report this to the plugin manager (dc: iksemdem_)");
+            Log.Error("[CassieFeatures] Unspecified SCP role was used! Report this to the plugin manager (dc: bart2441_)");
             return input.Replace("{ScpRole}", "unspecified SCP");
         }
     }

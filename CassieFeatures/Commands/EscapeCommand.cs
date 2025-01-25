@@ -1,6 +1,7 @@
 using System;
 using CommandSystem;
 using Exiled.API.Features;
+using Exiled.API.Features.Roles;
 using HintServiceMeow.Core.Utilities;
 using MEC;
 using UnityEngine;
@@ -30,20 +31,29 @@ namespace CassieFeatures.Commands
                 return false;
             }
             
-            if (!escapeCollider.bounds.Contains(pl.Position))
+            Vector3 colliderCenter = escapeCollider.bounds.center;
+            float allowedDistance = escapeCollider.bounds.extents.magnitude;
+            if (Vector3.Distance(pl.Position, colliderCenter) > allowedDistance)
             {
                 response = Plugin.Instance.Config.EscapeFailedDueToPlayerNotBeingAtEscape;
                 return false;
             }
+            
+            // if (!escapeCollider.bounds.Contains(pl.Position))
+            // {
+            //     response = Plugin.Instance.Config.EscapeFailedDueToPlayerNotBeingAtEscape;
+            //     return false;
+            // }
 
             PlayerDisplay playerDisplay = PlayerDisplay.Get(pl);
             playerDisplay.ClearHint();
 
             if (Plugin.Instance.Config.ShouldSentCassieAfterEscape)
             {
+                Role role = pl.Role;
                 Timing.CallDelayed(Plugin.Instance.Config.ScpEscapingCassie.Delay, () =>
                 {
-                    Utilities.HandleCassieAnnouncements.ScpEscapedCassie(pl.Role);
+                    Utilities.HandleCassieAnnouncements.ScpEscapedCassie(role);
                         
                 }, Server.Host.GameObject);
             }
