@@ -72,7 +72,7 @@ Default Config:
 cassie_features:
 # General:
   is_enabled: true
-  debug: true
+  debug: false
   # Settings for Tesla:
   is_tesla_feature_enabled: true
   tesla_does_not_activate_on_teams:
