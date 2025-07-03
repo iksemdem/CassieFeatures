@@ -17,6 +17,7 @@ namespace CassieFeatures.Commands
         
         public bool Execute(ArraySegment<string> args, ICommandSender sender, out string response)
         {
+            int SCPsEscaped = 0;
             var pl = Player.Get(sender);
             BoxCollider escapeCollider = Utilities.HandleCreatingColliders.GetEscapeCollider();
             
@@ -38,16 +39,39 @@ namespace CassieFeatures.Commands
                 response = Plugin.Instance.Config.EscapeFailedDueToPlayerNotBeingAtEscape;
                 return false;
             }
-            
-            // if (!escapeCollider.bounds.Contains(pl.Position))
-            // {
-            //     response = Plugin.Instance.Config.EscapeFailedDueToPlayerNotBeingAtEscape;
-            //     return false;
-            // }
 
             PlayerDisplay playerDisplay = PlayerDisplay.Get(pl);
             playerDisplay.ClearHint();
-
+            
+            if (SCPsEscaped >= Plugin.Instance.Config.EscapesToStartWarhead && Plugin.Instance.Config.EscapesToStartWarhead != 0 && !Warhead.IsInProgress)
+            {
+                Utilities.HandleCassieAnnouncements.EscapeWarheadCassie(Plugin.Instance.Config.ScpEscapingWarheadCassie.Delay);
+                
+                Timing.CallDelayed(Plugin.Instance.Config.ScpEscapingWarheadCassie.Delay, () =>
+                {
+                    if (!Plugin.Instance.Config.CanWarheadBeStopped)
+                    {
+                        DeadmanSwitch.Init();
+                    }
+                    else
+                    {
+                        Warhead.Start();
+                    }
+                }, Server.Host.GameObject);
+            }
+            else
+            {
+                if (Plugin.Instance.Config.ShouldSentCassieAfterEscape)
+                {
+                    Role role = pl.Role;
+                    Timing.CallDelayed(Plugin.Instance.Config.ScpEscapingCassie.Delay, () =>
+                    {
+                        Utilities.HandleCassieAnnouncements.ScpEscapedCassie(role);
+                    
+                    }, Server.Host.GameObject);
+                }
+            }
+            
             if (Plugin.Instance.Config.ShouldSentCassieAfterEscape)
             {
                 Role role = pl.Role;
@@ -59,6 +83,8 @@ namespace CassieFeatures.Commands
             }
             
             pl.Role.Set(Plugin.Instance.Config.RoleToChange, Plugin.Instance.Config.SpawnReason, Plugin.Instance.Config.RoleSpawnFlags);
+            SCPsEscaped += 1;
+            
             response = Plugin.Instance.Config.EscapeSuccess;
             return true;
         }

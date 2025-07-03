@@ -54,8 +54,6 @@ namespace CassieFeatures.Colliders
                         EventHandlers.WasScpSpottedOutside = true;
                     }
                     
-                    
-                    
                     Role playersRole = pl.Role;
                     Log.Debug($"players role is now: {playersRole}");
 

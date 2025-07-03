@@ -30,7 +30,7 @@ namespace CassieFeatures.Colliders
                     Text = hintContent,
                 };
                 
-                Log.Debug($"{_currentHint}");
+                Log.Debug($"{_currentHint.Text}");
                 PlayerDisplay playerDisplay = PlayerDisplay.Get(pl);
                 playerDisplay.AddHint(_currentHint);
             }

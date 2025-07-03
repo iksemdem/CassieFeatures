@@ -97,6 +97,16 @@ namespace CassieFeatures
         public SpawnReason SpawnReason { get; set; } = SpawnReason.Escaped;
         public RoleSpawnFlags RoleSpawnFlags { get; set; } = RoleSpawnFlags.All;
         public bool ShouldSentCassieAfterEscape { get; set; } = true;
+        [Description("Number of SCPs escaped after which Alpha Warhead will be started (0 to disable)")]
+        public int EscapesToStartWarhead { get; set; } = 2;
+        public bool CanWarheadBeStopped { get; set; } = true;
+        public int WarheadDelaySinceEscape { get; set; } = 60;
+        public CassieAnnouncement ScpEscapingWarheadCassie { get; set; } = new CassieAnnouncement(
+            "warning . the camera system has detected a surge of SCP escapes . the emergency alpha warhead detonation will start in t minus {WarheadDelay} seconds",
+            "Warning. The camera system has detected a surge of SCP escapes. The emergency Alpha Warhead detonation will start in t minus {WarheadDelay} seconds",
+            true,
+            true,
+            35);
         public CassieAnnouncement ScpEscapingCassie { get; set; } = new CassieAnnouncement(
             "warning . the camera system has lost information about the location of {ScpRole} . it is possible that there has been an escape",
             "Warning. The camera system has lost information about the location of {ScpRole}. It is possible that there has been an escape.",

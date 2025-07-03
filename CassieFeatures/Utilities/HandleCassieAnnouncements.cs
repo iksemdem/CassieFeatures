@@ -137,5 +137,25 @@ namespace CassieFeatures.Utilities
             }
         }
         
+        // ===================================
+        // === E S C A P E   W A R H E A D ===
+        // ===================================
+
+        public static void EscapeWarheadCassie(float delay)
+        {
+            Log.Debug("Sending CI entering facility cassie");
+            string cassieMessage = Plugin.Instance.Config.ScpEscapingWarheadCassie.Content;
+            string cassieText = Plugin.Instance.Config.ScpEscapingWarheadCassie.Subtitles;
+            
+            cassieMessage = cassieMessage.Replace("{WarheadDelay}", delay.ToString());
+            cassieText = cassieText.Replace("{WarheadDelay}", delay.ToString());
+            
+            Log.Debug($"cassie on scp leaving facility: {cassieMessage} , {cassieText}");
+
+            Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
+                Plugin.Instance.Config.ScpEscapingWarheadCassie.IsNoisy,
+                Plugin.Instance.Config.ScpEscapingWarheadCassie.ShowSubtitles);
+        }
+        
     }
 }
