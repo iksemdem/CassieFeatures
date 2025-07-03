@@ -68,6 +68,7 @@ These placeholders can be used in CASSIE announcements:
 | Tesla Death | `{PlayersTeam}` | Player's team | Class D Personnel |
 | Tesla Death | `{TeamMembersAlive}` | Number of teammates left | 7 |
 | SCP Escapes | `{ScpRole}` | SCP role number | SCP 173 |
+| SCP Escape Warhead | `{WarheadDelay}` | Time until Warhead is turned on | 60 |
 | SCP Leaves Facility | `{ScpRole}` | SCP role number | SCP 173 |
 | SCP Leaves Facility | `{Gate}` | Exit gate | Gate B |
 | CI Enters Facility | `{Gate}` | Entry gate | Gate A |
