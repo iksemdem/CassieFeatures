@@ -14,10 +14,9 @@ namespace CassieFeatures.Commands
         public string Command { get; } = Plugin.Instance.Config.CommandName;
         public string[] Aliases { get; } = new string[] {"esc"};
         public string Description { get; } = Plugin.Instance.Config.CommandDescription;
-        
+        public int SCPsEscaped = 0;
         public bool Execute(ArraySegment<string> args, ICommandSender sender, out string response)
         {
-            int SCPsEscaped = 0;
             var pl = Player.Get(sender);
             BoxCollider escapeCollider = Utilities.HandleCreatingColliders.GetEscapeCollider();
             
@@ -43,18 +42,21 @@ namespace CassieFeatures.Commands
             PlayerDisplay playerDisplay = PlayerDisplay.Get(pl);
             playerDisplay.ClearHint();
             
+            SCPsEscaped += 1;
             if (SCPsEscaped >= Plugin.Instance.Config.EscapesToStartWarhead && Plugin.Instance.Config.EscapesToStartWarhead != 0 && !Warhead.IsInProgress)
             {
-                Utilities.HandleCassieAnnouncements.EscapeWarheadCassie(Plugin.Instance.Config.ScpEscapingWarheadCassie.Delay);
+                Utilities.HandleCassieAnnouncements.EscapeWarheadCassie(Plugin.Instance.Config.WarheadDelaySinceEscape);
                 
                 Timing.CallDelayed(Plugin.Instance.Config.ScpEscapingWarheadCassie.Delay, () =>
                 {
                     if (!Plugin.Instance.Config.CanWarheadBeStopped)
                     {
-                        DeadmanSwitch.Init();
+                        Log.Debug("Starting deadman sequence");
+                        DeadmanSwitch.InitiateProtocol();
                     }
                     else
                     {
+                        Log.Debug("Starting warhead sequence");
                         Warhead.Start();
                     }
                 }, Server.Host.GameObject);
@@ -72,18 +74,7 @@ namespace CassieFeatures.Commands
                 }
             }
             
-            if (Plugin.Instance.Config.ShouldSentCassieAfterEscape)
-            {
-                Role role = pl.Role;
-                Timing.CallDelayed(Plugin.Instance.Config.ScpEscapingCassie.Delay, () =>
-                {
-                    Utilities.HandleCassieAnnouncements.ScpEscapedCassie(role);
-                        
-                }, Server.Host.GameObject);
-            }
-            
             pl.Role.Set(Plugin.Instance.Config.RoleToChange, Plugin.Instance.Config.SpawnReason, Plugin.Instance.Config.RoleSpawnFlags);
-            SCPsEscaped += 1;
             
             response = Plugin.Instance.Config.EscapeSuccess;
             return true;

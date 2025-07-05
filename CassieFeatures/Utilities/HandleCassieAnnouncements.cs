@@ -143,7 +143,7 @@ namespace CassieFeatures.Utilities
 
         public static void EscapeWarheadCassie(float delay)
         {
-            Log.Debug("Sending CI entering facility cassie");
+            Log.Debug("Sending SCP escaped warhead cassie");
             string cassieMessage = Plugin.Instance.Config.ScpEscapingWarheadCassie.Content;
             string cassieText = Plugin.Instance.Config.ScpEscapingWarheadCassie.Subtitles;
             

@@ -106,7 +106,7 @@ namespace CassieFeatures
             "Warning. The camera system has detected a surge of SCP escapes. The emergency Alpha Warhead detonation will start in t minus {WarheadDelay} seconds",
             true,
             true,
-            35);
+            15);
         public CassieAnnouncement ScpEscapingCassie { get; set; } = new CassieAnnouncement(
             "warning . the camera system has lost information about the location of {ScpRole} . it is possible that there has been an escape",
             "Warning. The camera system has lost information about the location of {ScpRole}. It is possible that there has been an escape.",
