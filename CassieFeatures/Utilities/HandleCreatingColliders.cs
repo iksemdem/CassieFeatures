@@ -34,7 +34,7 @@ namespace CassieFeatures.Utilities
                 
                 // Gate A Outside elevator exit position
                 // Surface position is fixed, so I don't attach this to a room
-                colliderGateAOutsideObject.transform.position = new Vector3(-10.1f, 1000.1f, 0.5f);
+                colliderGateAOutsideObject.transform.position = new Vector3(-10.1f, 300.1f, 0.5f);
 
                 colliderGateAOutsideObject.AddComponent<ColliderLeavingFacilityTriggerHandler>().colliderName =
                     "Collider Gate A Outside";
@@ -50,7 +50,7 @@ namespace CassieFeatures.Utilities
                 colliderGateBOutside.isTrigger = true;
                 
                 // Gate B Outside elevator exit position
-                colliderGateBOutsideObject.transform.position = new Vector3(63.7f, 994.9f, -33f);
+                colliderGateBOutsideObject.transform.position = new Vector3(63.7f, 294.9f, -33f);
 
                 colliderGateBOutsideObject.AddComponent<ColliderLeavingFacilityTriggerHandler>().colliderName =
                     "Collider Gate B Outside";
@@ -133,7 +133,7 @@ namespace CassieFeatures.Utilities
                 colliderEscape.size = new Vector3(13f, 0.3f, 10f);
                 colliderEscape.isTrigger = true;
 
-                colliderEscape.transform.position = new Vector3(127.5f, 988.2f, 24f);
+                colliderEscape.transform.position = new Vector3(127.5f, 288.2f, 24f);
                 
                 colliderEscapeObject.AddComponent<ColliderEscapingTriggerHandler>().colliderName =
                     "Collider Escape";
