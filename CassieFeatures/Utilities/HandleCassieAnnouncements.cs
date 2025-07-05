@@ -59,9 +59,12 @@ namespace CassieFeatures.Utilities
             cassieMessage = HandleReplacingPlaceholders.ReplacePlaceholdersScpRole(cassieMessage, scpRole);
             cassieText = HandleReplacingPlaceholders.ReplacePlaceholdersScpRole(cassieText, scpRole);
                     
-            Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
-                Plugin.Instance.Config.ScpEscapingCassie.IsNoisy,
-                Plugin.Instance.Config.ScpEscapingCassie.ShowSubtitles);
+            Timing.CallDelayed(Plugin.Instance.Config.ScpEscapingCassie.Delay, () =>
+            {
+                Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
+                    Plugin.Instance.Config.ScpEscapingCassie.IsNoisy,
+                    Plugin.Instance.Config.ScpEscapingCassie.ShowSubtitles);
+            }, Server.Host.GameObject);
         }
         
         // ===================================
@@ -151,10 +154,13 @@ namespace CassieFeatures.Utilities
             cassieText = cassieText.Replace("{WarheadDelay}", delay.ToString());
             
             Log.Debug($"cassie on scp leaving facility: {cassieMessage} , {cassieText}");
-
-            Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
-                Plugin.Instance.Config.ScpEscapingWarheadCassie.IsNoisy,
-                Plugin.Instance.Config.ScpEscapingWarheadCassie.ShowSubtitles);
+            
+            Timing.CallDelayed(Plugin.Instance.Config.ScpEscapingWarheadCassie.Delay, () =>
+                {
+                    Cassie.MessageTranslated($"{cassieMessage}", $"{cassieText}", false,
+                        Plugin.Instance.Config.ScpEscapingWarheadCassie.IsNoisy,
+                        Plugin.Instance.Config.ScpEscapingWarheadCassie.ShowSubtitles);
+                }, Server.Host.GameObject);
         }
         
     }
