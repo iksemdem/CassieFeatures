@@ -45,9 +45,9 @@ namespace CassieFeatures.Commands
             SCPsEscaped += 1;
             if (SCPsEscaped >= Plugin.Instance.Config.EscapesToStartWarhead && Plugin.Instance.Config.EscapesToStartWarhead != 0 && !Warhead.IsInProgress)
             {
-                Utilities.HandleCassieAnnouncements.EscapeWarheadCassie(Plugin.Instance.Config.WarheadDelaySinceEscape);
+                Utilities.HandleCassieAnnouncements.EscapeWarheadCassie(Plugin.Instance.Config.ScpEscapingWarheadCassie.Delay);
                 
-                Timing.CallDelayed(Plugin.Instance.Config.ScpEscapingWarheadCassie.Delay, () =>
+                Timing.CallDelayed(Plugin.Instance.Config.WarheadDelaySinceEscape, () =>
                 {
                     if (!Plugin.Instance.Config.CanWarheadBeStopped)
                     {
